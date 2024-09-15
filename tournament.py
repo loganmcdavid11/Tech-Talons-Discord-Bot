@@ -9,6 +9,7 @@ class Tournament:
         self.aof_time = aof_time
         self.field_address = field_address
         self.lodging_address = lodging_address
+        self.rsvp_list = []
         
     # Output
     def __repr__(self):
