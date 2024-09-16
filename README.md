@@ -1,40 +1,58 @@
-# Tech-Talons-Discord-Bot
-Self-programmed discord bot made for Tennessee Tech's Ultimate Frisbee team.<br>
-Goal: Automate and simplify tasks for members so that information can be easily accessed by the assistance of the Discord Bot. Increase engagement among members. Supply tips and information for those struggling on certain topics associated with Ultimate Frisbee.
+# Tech Talons Discord Bot
+
+A custom-built Discord bot for Tennessee Tech's Ultimate Frisbee team.
+
+**Goal:** To automate and simplify tasks for team members, allowing easy access to information through the bot. Increase member engagement and provide tips and resources for those seeking help with Ultimate Frisbee topics.
 
 ---
 
 ## Table of Contents
+- [Setup](#setup)
+  - [Create and Invite Your Bot](#create-and-invite-your-bot)
+  - [Download Necessary Packages](#download-necessary-packages)
+  - [Set Up Your Bot Token](#set-up-bot-token)
+  - [Using the Bot](#using-the-bot)
+- [Features](#features)
+  - [Tournament Schedule](#tournament-schedule)
+  - [Library of Information](#library-of-information)
 
 ---
 
 ### Setup
-1. Create and Invite your bot
-   - Click this link https://discordpy.readthedocs.io/en/stable/discord.html to help create your bot and invite it to your desired .
-2. Download Necessary Packages
-   - This discord bot is written in Python. Click here https://www.python.org/downloads/ to download the latest version of Python.
-     - Check installation by typing version --python in your terminal
-   - In your terminal, install the discord package by typing pip install discord.py
-   - Enable requests by typing in your terminal pip install requests
-3. Set Up Bot Token
-   - Click here https://discord.com/developers/applications/ to open Discord Developer Portal and log in
-   - Go to bot settings and look for **Token**
-   - Click the **Copy** button to get your token
-   - Then enter your bot token in apikeys.py where the **BOT_TOKEN** is declared
-4. Using the Bot
-   - When typing a command, use the prelimitor **'!'** and then the command name
-   - For any questions on what commands to use, type **!help**
+
+#### Create and Invite Your Bot
+- Follow this [guide](https://discordpy.readthedocs.io/en/stable/discord.html) to create your bot and invite it to your desired server.
+
+#### Download Necessary Packages
+- This bot is written in Python. Download the latest version of Python [here](https://www.python.org/downloads/).
+- Check installation by typing `python --version` in your terminal.
+- Install the Discord package by running `pip install discord.py`
+- Enable HTTP requests by running `pip install requests`
+  
+#### Set Up Bot Token
+- Click [here](https://discord.com/developers/applications/) to open the Discord Developer Portal and log in.
+- Navigate to the **Bot** settings and locate the **Token** section.
+- Click the **Copy** button to retrieve your bot token.
+- Enter the token in `apikeys.py`, where **BOT_TOKEN** is declared.
+
+#### Using the Bot
+- When typing a command, use the prefix **'!'** followed by the command name.
+- For a list of available commands, type `!help`.
+
 ---
 
 ### Features
-<h4>Tournament Schedule</h4>
-Captains can add tournaments to a list for members to view at anytime, giving players the choice to RSVP for a tournament. Captains can then pull the list of members who RSVP'd for a tournament in order to see who all is going
-- Add Tournaments: !add_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address" 
-- Delete Tournaments: !delete_tournament Tournament Name
-- Edit Tournaments: !edit_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address" 
-- View Tournaments: !tournaments
-- RSVP for Tournament: !rsvp_tournament Tournament Name
-- unRSVP from Tournament: !unrsvp_tournament Tournament Name
-- View RSVP List for Specific Tournament: !view_rsvp_list Tournament Name
-<h4>Library of Information</h4>
-- View Offical Ultimate Frisbee Rulebook: !rulebook
+
+#### Tournament Schedule
+Captains can add tournaments for members to view at any time, allowing players to RSVP. Captains can also view the list of members who have RSVP'd for each tournament.
+
+- **Add a Tournament:**
+`!add_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
+- **Delete a Tournament:** `!delete_tournament Tournament Name`
+- **Edit Tournaments:** `!edit_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
+- **View Tournaments:** `!tournaments`
+- **RSVP for Tournament:** `!rsvp_tournament Tournament Name`
+- **unRSVP from Tournament:** `!unrsvp_tournament Tournament Name`
+- **View RSVP List for Specific Tournament:** `!view_rsvp_list Tournament Name`
+#### Library of Information
+- **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
