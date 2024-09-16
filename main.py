@@ -1,5 +1,7 @@
 import discord
 import requests
+import asyncio
+import os
 from discord.ext import commands
 import apikeys
 from tournament import Tournament
@@ -12,8 +14,17 @@ intents.members = True
 client = commands.Bot(command_prefix = '!', intents = discord.Intents.all())
 
 
-# Example of a simple in-memory tournament list (could be extended to a database)
-tournament_list = []
+async def load():
+    for filename in os.listdir('./cogs'):
+        if filename.endswith('.py'):
+            await client.load_extension(f'cogs.{filename[:-3]}')
+            
+async def main():
+    await load()
+    await client.start(apikeys.BOT_TOKEN)
+            
+
+
 
 
 
@@ -64,7 +75,7 @@ async def cat(ctx):
 Tournament
 Purpose: Add and remove tournaments for members
 to view at any time
-"""
+
 # Captains Add Tournament
 # !add_tournament "tournament_name" "start_date" etc
 @client.command()
@@ -82,6 +93,7 @@ async def add_tournament(ctx, name: str, start_date: str, end_date: str, locatio
     tournament_list.append(tournament)
     await ctx.send(f"Tournament '{name}' added successfully!")
     
+"""
 # Delete a Tournament
 # !delete_tournament name_of_tournament
 @client.command()
@@ -290,5 +302,5 @@ async def on_member_join(member):
 
 
 # Run client with discord bot token
-client.run(apikeys.BOT_TOKEN)
-
+#client.run(apikeys.BOT_TOKEN)
+asyncio.run(main())
