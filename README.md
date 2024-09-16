@@ -8,10 +8,6 @@ A custom-built Discord bot for Tennessee Tech's Ultimate Frisbee team.
 
 ## Table of Contents
 - [Setup](#setup)
-  - [Create and Invite Your Bot](#create-and-invite-your-bot)
-  - [Download Necessary Packages](#download-necessary-packages)
-  - [Set Up Your Bot Token](#set-up-bot-token)
-  - [Using the Bot](#using-the-bot)
 - [Features](#features)
   - [Tournament Schedule](#tournament-schedule)
   - [Library of Information](#library-of-information)
