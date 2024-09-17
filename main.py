@@ -10,19 +10,20 @@ import os
 from discord.ext import commands
 import apikeys
 
-# Members intent
+# Members intents
 intents = discord.Intents.default()
 intents.members = True
 
 # Initializing instance of bot and the prefix command
 client = commands.Bot(command_prefix = '!', intents = discord.Intents.all())
 
-
+# Load all files from cog folder
 async def load():
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             await client.load_extension(f'cogs.{filename[:-3]}')
             
+# Turns the Talons Bot on
 async def main():
     await load()
     await client.start(apikeys.BOT_TOKEN)
@@ -35,19 +36,7 @@ async def on_ready():
     print('The bot is now ready for use captain!')
     print('--------------------------------------')
     
-
-
-
-
-    
-    
-        
-        
-
-    
     
 
-
-# Run client with discord bot token
-#client.run(apikeys.BOT_TOKEN)
+# Execute main function and run the Talons Bot
 asyncio.run(main())
