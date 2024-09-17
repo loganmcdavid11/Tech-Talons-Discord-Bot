@@ -32,6 +32,7 @@ A custom-built Discord bot for Tennessee Tech's Ultimate Frisbee team.
 - Enter the token in `apikeys.py`, where **BOT_TOKEN** is declared.
 
 #### Using the Bot
+- To start the bot, type in your terminal `python3 main.py`
 - When typing a command, use the prefix **'!'** followed by the command name.
 - For a list of available commands, type `!help`.
 
