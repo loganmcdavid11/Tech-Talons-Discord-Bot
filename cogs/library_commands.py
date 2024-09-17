@@ -1,10 +1,20 @@
+"""
+Name: Logan McDavid
+Filename: library_commands.py    
+Purpose: Contains commands asociated with
+the library, such as drills, formations, 
+rules etc.
+"""
 import discord
 from discord.ext import commands
 
+# Library Commands Class
 class LibraryCommands(commands.Cog):
+    # Constructor
     def __init__(self, bot):
         self.bot = bot
         
+    # Library bot turning on
     commands.Cog.listener()
     async def on_ready(self):
         print("Library Bot is Online")
@@ -19,7 +29,6 @@ class LibraryCommands(commands.Cog):
         await ctx.send(embed=embed)
     
     
-        
-        
+# Set up Library bot
 async def setup(bot):
     await bot.add_cog(LibraryCommands(bot))

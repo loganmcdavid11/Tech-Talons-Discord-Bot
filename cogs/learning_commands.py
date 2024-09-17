@@ -1,16 +1,26 @@
+"""
+Name: Logan McDavid
+Filename: learning_commands.py    
+Purpose: Contains commands associated with
+me learning and experimenting with the 
+discord bot
+"""
 import discord
 import requests
-import apikeys
 from discord.ext import commands
 
+# Learning Commands Class
 class LearningCommands(commands.Cog):
+    # Constructor
     def __init__(self, bot):
         self.bot = bot
         
+    # Learning bot turning on 
     @commands.Cog.listener()
     async def on_ready(self):
         print("Learning Bot is Online!")
         
+    # !ping
     @commands.command()
     async def ping(self, ctx):
         await ctx.send("Pong") 
@@ -55,5 +65,6 @@ class LearningCommands(commands.Cog):
 """
 
 
+# Set up Learning bot
 async def setup(bot):
     await bot.add_cog(LearningCommands(bot))
