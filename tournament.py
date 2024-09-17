@@ -1,4 +1,11 @@
-# Tournament Class 
+"""
+Name: Logan McDavid
+Filename: tournament.py    
+Purpose: Contains tournament class for
+tournament_commands
+"""
+
+# Tournament Class
 class Tournament:
     # Constructor
     def __init__(self, name, start_date, end_date, location, aof_time, field_address, lodging_address):
@@ -11,7 +18,7 @@ class Tournament:
         self.lodging_address = lodging_address
         self.rsvp_list = []
         
-    # Output
+    # List organization for tournament list
     def __repr__(self):
         return (f"{self.name}\n"
                 f"Date: {self.start_date} to {self.end_date}\n"
