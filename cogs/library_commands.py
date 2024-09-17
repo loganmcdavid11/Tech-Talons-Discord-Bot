@@ -32,3 +32,4 @@ class LibraryCommands(commands.Cog):
 # Set up Library bot
 async def setup(bot):
     await bot.add_cog(LibraryCommands(bot))
+    
