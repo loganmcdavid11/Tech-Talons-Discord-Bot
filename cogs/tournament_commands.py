@@ -239,3 +239,4 @@ class TournamentCommands(commands.Cog):
 # Set up Tournament bot
 async def setup(bot):
     await bot.add_cog(TournamentCommands(bot))
+    
