@@ -234,7 +234,44 @@ class TournamentCommands(commands.Cog):
         
         # Tournament not found
         await ctx.send(f"Tournament '{name}' not found.")
-        
+       
+    # View Tournament Packing List
+    # !tournament_packing_list
+    @commands.command()
+    async def tournament_packing_list(self, ctx):
+        embed = discord.Embed(title="Tournament Packing List", color=0xffd700)
+        embed.add_field(
+            name="Packing Essentials",
+            value=(
+                "**Clothing**\n"
+                "• 1 Light and Dark Shirt per day\n"
+                "• 3 pairs of socks per day\n"
+                "• Extra layers (if cold/windy/rainy)\n"
+                "**Gear**\n"
+                "• Cleats\n"
+                "• Frisbee\n"
+                "• Gloves\n"
+                "• Hat\n"
+                "• Any braces for injuries\n"
+                "**Hydration / Energy**\n"
+                "• Snacks\n"
+                "  • Sugars for quick energy\n"
+                "  • Carbs before and for throughout the day\n"
+                "• Electrolytes\n"
+                "• Water Bottle\n"
+                "**Miscellaneous**\n"
+                "• Sunscreen\n"
+                "• Nail clippers\n"
+                "• Wallet\n"
+                "• Toiletries\n"
+                "• Deodorant for frisbee bag\n"
+                "• Advil\n"
+            ),
+            inline=False
+        )
+    
+        await ctx.send(embed=embed)
+
         
 # Set up Tournament bot
 async def setup(bot):
