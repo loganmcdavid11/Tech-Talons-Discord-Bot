@@ -1,6 +1,8 @@
 # Tech Talons Discord Bot
 
-A custom-built Discord bot for Tennessee Tech's Ultimate Frisbee team.
+A custom-built Discord bot for Tennessee Tech's Ultimate Frisbee team. 
+
+Please note that this bot is still under development.
 
 **Goal:** To automate and simplify tasks for team members, allowing easy access to information through the bot. Increase member engagement and provide tips and resources for those seeking help with Ultimate Frisbee topics.
 
