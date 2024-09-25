@@ -51,7 +51,7 @@ Captains can add tournaments for members to view at any time, allowing players t
 - **View Tournaments:** `!tournaments`
 - **RSVP for Tournament:** `!rsvp_tournament Tournament Name`
 - **unRSVP from Tournament:** `!unrsvp_tournament Tournament Name`
-- **View RSVP List for Specific Tournament:** `!view_rsvp_list Tournament Name`
+- **View RSVP List for Specific Tournament:** `!view_tournament_rsvp_list Tournament Name`
 - **Tournament Packing List:** `!tournament_packing_list`
 #### Library of Information
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
