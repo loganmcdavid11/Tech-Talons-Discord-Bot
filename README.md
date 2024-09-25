@@ -45,13 +45,13 @@ Please note that this bot is still under development.
 #### Tournament Schedule
 Captains can add tournaments for members to view at any time, allowing players to RSVP. Captains can also view the list of members who have RSVP'd for each tournament.
 
-- **Add a Tournament:**
-`!add_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
+- **Add a Tournament:** `!add_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
 - **Delete a Tournament:** `!delete_tournament Tournament Name`
 - **Edit Tournaments:** `!edit_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
 - **View Tournaments:** `!tournaments`
 - **RSVP for Tournament:** `!rsvp_tournament Tournament Name`
 - **unRSVP from Tournament:** `!unrsvp_tournament Tournament Name`
 - **View RSVP List for Specific Tournament:** `!view_rsvp_list Tournament Name`
+- **Tournament Packing List:** `!tournament_packing_list`
 #### Library of Information
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
