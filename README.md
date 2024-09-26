@@ -43,8 +43,13 @@ Please note that this bot is still under development.
 ### Features
 
 #### Tournament Schedule
-Captains can add tournaments for members to view at any time, allowing players to RSVP. Captains can also view the list of members who have RSVP'd for each tournament.
-
+##### Member Permissions: 
+- Players can view upcoming tournaments as well as rsvp / unrsvp for specific upcoming tournaments
+- Players can view a packing list in order to be well prepared for a tournament
+##### Admin Permissions:
+- Captains can add and delete tournaments to a list, as well as modify the tournament
+- Captains can view an rsvp list for each upcoming tournament
+##### Commands:
 - **Add a Tournament:** `!add_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
 - **Delete a Tournament:** `!delete_tournament Tournament Name`
 - **Edit Tournaments:** `!edit_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
@@ -53,5 +58,14 @@ Captains can add tournaments for members to view at any time, allowing players t
 - **unRSVP from Tournament:** `!unrsvp_tournament Tournament Name`
 - **View RSVP List for Specific Tournament:** `!view_tournament_rsvp_list Tournament Name`
 - **Tournament Packing List:** `!tournament_packing_list`
+#### Purple vs. Gold Scrimmage
+##### Member Permissions: 
+- Players can rsvp / unrsvp from an organized scrimmage called *Purple vs. Gold* as either a handler, cutter, or "hybrid"
+##### Admin Permissions: 
+- Captains can view the list of RSVP's in order to see the total as well as who is what position
+- Captains can randomly sort teams, dividing positions evenly. Captains can then approve the team, granting purple or gold role depending on which team you are on
+##### Commands:
+- **RSVP for Scrimmage:** `!rsvp_scrimmage position-name`
+  - position-name = handler, cutter, or hybrid
 #### Library of Information
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
