@@ -9,7 +9,6 @@ class Scrimmage:
     def __init__(self):
         self.purple_team = []
         self.gold_team = []
-        self.signed_up_players = []
         self.cutters = []
         self.handlers = []
         self.hybrids = []
