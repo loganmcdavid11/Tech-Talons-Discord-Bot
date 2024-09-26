@@ -125,7 +125,7 @@ class TournamentCommands(commands.Cog):
                         f"**Lodging Address:** {tournament.lodging_address}\n"
                         "\u200B" # Add separation
                     ),
-                    inline=False # Displays details on new line
+                    inline=False
                 )
             
             # Output list to channel
@@ -206,7 +206,7 @@ class TournamentCommands(commands.Cog):
     # View list of RSVP's for a tournament
     # view_tournament_rsvp_list tournament_name
     @commands.command()
-    @commands.has_role('Captain') # Captains channel
+    @commands.has_role('Captain') # Captain permissions
     async def view_tournament_rsvp_list(self, ctx, *, name: str):
         name = name.strip()  # Trim leading and trailing spaces
     
@@ -219,10 +219,22 @@ class TournamentCommands(commands.Cog):
                     # List of players who RSVP'd
                     rsvp_names = '\n'.join([f"• {player}" for player in tournament.rsvp_list])
                 
-                    # Embed for list of players who rsvp'd
-                    embed = discord.Embed(title=f"RSVP List for {tournament.name}", color=0xffd700)
-                    embed.add_field(name="**Players**", value=rsvp_names, inline=False)
-                    embed.add_field(name="**Total RSVPs**", value=str(len(tournament.rsvp_list)), inline=False)
+                    # Embed list of players who rsvp'd
+                    embed = discord.Embed(
+                        title=f"RSVP List for {tournament.name}",
+                        color=0xffd700
+                    )
+                    # List of players
+                    embed.add_field(
+                        name="**Players**",
+                        value=rsvp_names,
+                        inline=False
+                        )
+                    # Total count
+                    embed.add_field(
+                        name="**Total RSVPs**",
+                        value=str(len(tournament.rsvp_list)),
+                        inline=False)
                 
                     # Output list to channel
                     await ctx.send(embed=embed)
@@ -239,7 +251,9 @@ class TournamentCommands(commands.Cog):
     # !tournament_packing_list
     @commands.command()
     async def tournament_packing_list(self, ctx):
+        # Embed list
         embed = discord.Embed(title="Tournament Packing List", color=0xffd700)
+        # Clothing items
         embed.add_field(
             name="Clothing",
             value=(
@@ -249,6 +263,7 @@ class TournamentCommands(commands.Cog):
             ),
             inline=False
         )
+        # Gear
         embed.add_field(
             name="Gear",
             value=(
@@ -260,6 +275,7 @@ class TournamentCommands(commands.Cog):
             ),
             inline=False
         )
+        # Hydration and energy
         embed.add_field(
             name="Hydration / Energy",
             value=(
@@ -271,6 +287,7 @@ class TournamentCommands(commands.Cog):
             ),
             inline=False
         )
+        # Miscellaneous
         embed.add_field(
             name="Miscellaneous",
             value=(
@@ -284,6 +301,7 @@ class TournamentCommands(commands.Cog):
             inline=False
         )
     
+        # Output list to channels
         await ctx.send(embed=embed)
 
         
