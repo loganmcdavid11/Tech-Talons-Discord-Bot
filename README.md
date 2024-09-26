@@ -12,6 +12,8 @@ Please note that this bot is still under development.
 - [Setup](#setup)
 - [Features](#features)
   - [Tournament Schedule](#tournament-schedule)
+  - [Purple vs. Gold Scrimmage](#purple-vs-gold-scrimmage)
+  - [Channel Related Commands](#channel-related-commands)
   - [Library of Information](#library-of-information)
 
 ---
