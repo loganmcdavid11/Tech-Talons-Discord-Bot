@@ -204,10 +204,10 @@ class TournamentCommands(commands.Cog):
         await ctx.send("f{member_name}")
 
     # View list of RSVP's for a tournament
-    # view_rsvp_list tournament_name
+    # view_tournament_rsvp_list tournament_name
     @commands.command()
     @commands.has_role('Captain') # Captains channel
-    async def view_rsvp_list(self, ctx, *, name: str):
+    async def view_tournament_rsvp_list(self, ctx, *, name: str):
         name = name.strip()  # Trim leading and trailing spaces
     
         # Find desired tournament
