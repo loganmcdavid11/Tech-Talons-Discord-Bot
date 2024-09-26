@@ -67,5 +67,29 @@ Please note that this bot is still under development.
 ##### Commands:
 - **RSVP for Scrimmage:** `!rsvp_scrimmage position-name`
   - position-name = handler, cutter, or hybrid
+- **unRSVP from Scrimmage:** `!unrsvp_scrimmage position-name`
+  - position-name = handler, cutter, or hybrid
+- **View RSVP List for Scrimmage:** `!view_scrimmage_rsvp_list`
+- **Randomly Sort Teams:** `!sort_teams`
+- **Approve Sorted Teams:** `!approve_teams`
+- **Reset Teams:** `!reset_teams`
+#### Channel Related Commands
+##### Permissions:
+- Members can assign themselves the "Cutter" "Handler" or both of the roles as well as remove it
+- Members can assign themselves the "Tournament" role as well as remove it
+- Members can assign themselves the "Team Purple" or "Team Gold" role as well as remove it
+##### Commands
+- **Choose a Position:** `!choose_position position-name
+  - position-name = handler or cutter
+  - Can also say `!choose_position handler cutter` to add both, vise versa
+- **Remove a Possition:** `!remove_position position-name`
+  - position-name = handler or cutter
+  - Can also say `!choose_position handler cutter` to add both, vise versa
+- **Add Tournament Role:** `!add_tournament_role
+- **Remove Tournament Role:** `remove_tournament_role`
+- **Add to Team Purple or Team Gold:** `!add_purple_gold team-name
+  - team-name = purple or gold
+- **Remove from Team Purple or Team Gold:** `remove_purple_gold team-name`
+  - team-name = purple or gold
 #### Library of Information
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
