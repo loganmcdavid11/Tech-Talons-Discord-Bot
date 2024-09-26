@@ -241,32 +241,46 @@ class TournamentCommands(commands.Cog):
     async def tournament_packing_list(self, ctx):
         embed = discord.Embed(title="Tournament Packing List", color=0xffd700)
         embed.add_field(
-            name="Packing Essentials",
+            name="Clothing",
             value=(
-                "**Clothing**\n"
                 "• 1 Light and Dark Shirt per day\n"
                 "• 3 pairs of socks per day\n"
                 "• Extra layers (if cold/windy/rainy)\n"
-                "**Gear**\n"
+            ),
+            inline=False
+        )
+        embed.add_field(
+            name="Gear",
+            value=(
                 "• Cleats\n"
                 "• Frisbee\n"
                 "• Gloves\n"
                 "• Hat\n"
                 "• Any braces for injuries\n"
-                "**Hydration / Energy**\n"
+            ),
+            inline=False
+        )
+        embed.add_field(
+            name="Hydration / Energy",
+            value=(
                 "• Snacks\n"
                 "  • Sugars for quick energy\n"
                 "  • Carbs before and for throughout the day\n"
                 "• Electrolytes\n"
                 "• Water Bottle\n"
-                "**Miscellaneous**\n"
+            ),
+            inline=False
+        )
+        embed.add_field(
+            name="Miscellaneous",
+            value=(
                 "• Sunscreen\n"
                 "• Nail clippers\n"
                 "• Wallet\n"
                 "• Toiletries\n"
                 "• Deodorant for frisbee bag\n"
                 "• Advil\n"
-            ),
+                ),
             inline=False
         )
     
