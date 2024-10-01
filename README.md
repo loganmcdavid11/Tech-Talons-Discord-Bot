@@ -53,12 +53,12 @@ Please note that this bot is still under development.
 - Captains can view an rsvp list for each upcoming tournament
 ##### Commands:
 - **Add a Tournament:** `!add_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
-- **Delete a Tournament:** `!delete_tournament Tournament Name`
+- **Delete a Tournament:** `!delete_tournament <Tournament Name>`
 - **Edit Tournaments:** `!edit_tournament "Tournament Name" "Start Date" "End Date" "Location" "Arrival on Field Time" "Field Address" "Lodging Address"`
 - **View Tournaments:** `!tournaments`
-- **RSVP for Tournament:** `!rsvp_tournament Tournament Name`
-- **unRSVP from Tournament:** `!unrsvp_tournament Tournament Name`
-- **View RSVP List for Specific Tournament:** `!view_tournament_rsvp_list Tournament Name`
+- **RSVP for Tournament:** `!rsvp_tournament <Tournament Name>`
+- **unRSVP from Tournament:** `!unrsvp_tournament <Tournament Name>`
+- **View RSVP List for Specific Tournament:** `!view_tournament_rsvp_list <Tournament Name>`
 - **Tournament Packing List:** `!tournament_packing_list`
 #### Purple vs. Gold Scrimmage
 ##### Member Permissions: 
@@ -81,17 +81,17 @@ Please note that this bot is still under development.
 - Members can assign themselves the "Tournament" role as well as remove it
 - Members can assign themselves the "Team Purple" or "Team Gold" role as well as remove it
 ##### Commands
-- **Choose a Position:** `!choose_position position-name
-  - position-name = handler or cutter
+- **Choose a Position:** `!choose_position <position name>`
+  - <position name> = handler or cutter
   - Can also say `!choose_position handler cutter` to add both, vise versa
-- **Remove a Possition:** `!remove_position position-name`
+- **Remove a Possition:** `!remove_position <position name>`
   - position-name = handler or cutter
   - Can also say `!choose_position handler cutter` to add both, vise versa
 - **Add Tournament Role:** `!add_tournament_role
 - **Remove Tournament Role:** `remove_tournament_role`
-- **Add to Team Purple or Team Gold:** `!add_purple_gold team-name
-  - team-name = purple or gold
+- **Add to Team Purple or Team Gold:** `!add_purple_gold <team name>
+  - <team name> = purple or gold
 - **Remove from Team Purple or Team Gold:** `remove_purple_gold team-name`
-  - team-name = purple or gold
+  - <team-name> = purple or gold
 #### Library of Information
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
