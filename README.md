@@ -67,10 +67,10 @@ Please note that this bot is still under development.
 - Captains can view the list of RSVP's in order to see the total as well as who is what position
 - Captains can randomly sort teams, dividing positions evenly. Captains can then approve the team, granting purple or gold role depending on which team you are on
 ##### Commands:
-- **RSVP for Scrimmage:** `!rsvp_scrimmage position-name`
-  - position-name = handler, cutter, or hybrid
-- **unRSVP from Scrimmage:** `!unrsvp_scrimmage position-name`
-  - position-name = handler, cutter, or hybrid
+- **RSVP for Scrimmage:** `!rsvp_scrimmage <position name>`
+  - `<position name>` = handler, cutter, or hybrid
+- **unRSVP from Scrimmage:** `!unrsvp_scrimmage <position name>`
+  - `<position name>` = handler, cutter, or hybrid
 - **View RSVP List for Scrimmage:** `!view_scrimmage_rsvp_list`
 - **Randomly Sort Teams:** `!sort_teams`
 - **Approve Sorted Teams:** `!approve_teams`
@@ -82,16 +82,16 @@ Please note that this bot is still under development.
 - Members can assign themselves the "Team Purple" or "Team Gold" role as well as remove it
 ##### Commands
 - **Choose a Position:** `!choose_position <position name>`
-  - <position name> = handler or cutter
+  - `<position name>` = handler or cutter
   - Can also say `!choose_position handler cutter` to add both, vise versa
 - **Remove a Possition:** `!remove_position <position name>`
-  - position-name = handler or cutter
+  - `<position name>` = handler or cutter
   - Can also say `!choose_position handler cutter` to add both, vise versa
 - **Add Tournament Role:** `!add_tournament_role
 - **Remove Tournament Role:** `remove_tournament_role`
 - **Add to Team Purple or Team Gold:** `!add_purple_gold <team name>
-  - <team name> = purple or gold
-- **Remove from Team Purple or Team Gold:** `remove_purple_gold team-name`
-  - <team-name> = purple or gold
+  - `<team name>` = purple or gold
+- **Remove from Team Purple or Team Gold:** `remove_purple_gold <team name>`
+  - `<team name>` = purple or gold
 #### Library of Information
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
