@@ -110,7 +110,10 @@ class TournamentCommands(commands.Cog):
         # Display all tournaments
         else:
             # Title message
-            embed = discord.Embed(title="Upcoming Tournaments", color=0xffd700)
+            embed = discord.Embed(
+                title="Upcoming Tournaments", 
+                color=0xffd700
+            )
         
             # Loop through each tournament
             for tournament in tournament_list:
@@ -133,7 +136,7 @@ class TournamentCommands(commands.Cog):
             
             
     # RSVP for Tournament
-    # !rsvp_tournament tournament_name
+    # !rsvp_tournament tournament name
     @commands.command()
     async def rsvp_tournament(self, ctx, *, name: str):
         channel = self.bot.get_channel(channel_ids.CAPTAIN_CHANNEL_ID) # Captains channel
@@ -169,7 +172,7 @@ class TournamentCommands(commands.Cog):
 
     
     # Un-RSVP from tournament
-    # !unrsvp_tournament tournament_name
+    # !unrsvp_tournament tournament name
     @commands.command()
     async def unrsvp_tournament(self, ctx, *, name: str):
         channel = self.bot.get_channel(channel_ids.CAPTAIN_CHANNEL_ID) # Captains channel
