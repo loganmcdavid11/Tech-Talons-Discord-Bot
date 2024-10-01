@@ -261,6 +261,13 @@ class ScrimmageCommands(commands.Cog):
         # Remove players on gold team
         for player in gold_team_role.members:
             await player.remove_roles(gold_team_role)
+            
+        # Empty lists
+        self.scrimmage_instance.purple_team = []
+        self.scrimmage_instance.gold_team = []
+        self.scrimmage_instance.cutters = []
+        self.scrimmage_instance.handlers = []
+        self.scrimmage_instance.hybrids = []
         
         await ctx.send("Players have been removed from purple and gold successfully")
         
