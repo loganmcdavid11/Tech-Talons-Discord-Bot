@@ -11,10 +11,11 @@ Please note that this bot is still under development.
 ## Table of Contents
 - [Setup](#setup)
 - [Features](#features)
+  - [Help Commands](#help-commands)
   - [Tournament Schedule](#tournament-schedule)
   - [Purple vs. Gold Scrimmage](#purple-vs-gold-scrimmage)
   - [Channel Related Commands](#channel-related-commands)
-  - [Library of Information](#library-of-information)
+  - [Library](#library)
 
 ---
 
@@ -43,6 +44,9 @@ Please note that this bot is still under development.
 ---
 
 ### Features
+#### Help Commands
+- **List of Helpful Commands**: `!help`
+- **List of Helpful Captain Commands**: `!help_captain`
 
 #### Tournament Schedule
 ##### Member Permissions: 
@@ -60,6 +64,8 @@ Please note that this bot is still under development.
 - **unRSVP from Tournament:** `!unrsvp_tournament <Tournament Name>`
 - **View RSVP List for Specific Tournament:** `!view_tournament_rsvp_list <Tournament Name>`
 - **Tournament Packing List:** `!tournament_packing_list`
+- **List of Tournament Commands:** `!tournament_commands`
+- **List of Tournament Commands for Captains:** `!tournament_commands_captain`
 #### Purple vs. Gold Scrimmage
 ##### Member Permissions: 
 - Players can rsvp / unrsvp from an organized scrimmage called *Purple vs. Gold* as either a handler, cutter, or "hybrid"
@@ -75,6 +81,8 @@ Please note that this bot is still under development.
 - **Randomly Sort Teams:** `!sort_teams`
 - **Approve Sorted Teams:** `!approve_teams`
 - **Reset Teams:** `!reset_teams`
+- **List of Scrimmage Commands:** `!scrimmage_commands`
+- **List of Scrimmage Commands for Captains:** `!scrimmage_commands_captain`
 #### Channel Related Commands
 ##### Permissions:
 - Members can assign themselves the "Cutter" "Handler" or both of the roles as well as remove it
@@ -93,5 +101,7 @@ Please note that this bot is still under development.
   - `<team name>` = purple or gold
 - **Remove from Team Purple or Team Gold:** `remove_purple_gold <team name>`
   - `<team name>` = purple or gold
-#### Library of Information
+- **List of Channel Commands:** `!channel_commands`
+#### Library
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
+- **View Talons Official Playbook:** `!playbook`
