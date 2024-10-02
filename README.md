@@ -103,5 +103,8 @@ Please note that this bot is still under development.
   - `<team name>` = purple or gold
 - **List of Channel Commands:** `!channel_commands`
 #### Library
+##### Permissions:
+- Members can view important information such as the rules or the playbook
+##### Commands
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
 - **View Talons Official Playbook:** `!playbook`
