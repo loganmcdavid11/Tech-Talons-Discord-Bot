@@ -8,7 +8,7 @@ specific tournament
 import discord
 import channel_ids
 from discord.ext import commands
-from tournament import Tournament
+from classes.tournament import Tournament
 
 # List of tournaments
 tournament_list = []

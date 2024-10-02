@@ -7,7 +7,7 @@ scrimamge scheduling
 import discord
 import random
 from discord.ext import commands
-from scrimmage import Scrimmage
+from classes.scrimmage import Scrimmage
 
 # Scrimmage Commands Class
 class ScrimmageCommands(commands.Cog):
