@@ -6,7 +6,7 @@ tournament scheduling and RSVPing for a
 specific tournament
 """
 import discord
-import channel_ids
+import keys_ids.channel_ids as channel_ids
 from discord.ext import commands
 from classes.tournament import Tournament
 
