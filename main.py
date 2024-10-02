@@ -8,7 +8,7 @@ import discord
 import asyncio
 import os
 from discord.ext import commands
-import apikeys
+import keys_ids.apikeys as apikeys
 
 # Members intents
 intents = discord.Intents.default()
