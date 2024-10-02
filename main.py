@@ -15,7 +15,7 @@ intents = discord.Intents.default()
 intents.members = True
 
 # Initializing instance of bot and the prefix command
-client = commands.Bot(command_prefix = '!', intents = discord.Intents.all())
+client = commands.Bot(command_prefix = '!', intents = discord.Intents.all(), help_command=None) # Disable help command
 
 # Load all files from cog folder
 async def load():
