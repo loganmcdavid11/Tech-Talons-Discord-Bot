@@ -16,6 +16,7 @@ Please note that this bot is still under development.
   - [Purple vs. Gold Scrimmage](#purple-vs-gold-scrimmage)
   - [Channel Related Commands](#channel-related-commands)
   - [Library](#library)
+- [Work Cited](#work-cited)
 
 ---
 
@@ -106,3 +107,12 @@ Please note that this bot is still under development.
 ##### Commands
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
 - **View Talons Official Playbook:** `!playbook`
+
+---
+
+### Work Cited
+- [**discord.py Commands**](https://discordpy.readthedocs.io/en/latest/ext/commands/commands.html)
+- [**How to make a Discord Bot in Python! (2022) - James S**](https://www.youtube.com/playlist?list=PL-7Dfw57ZZVRB4N7VWPjmT0Q-2FIMNBMP)
+- [**Making a Discord Bot | Part 10: Cogs | Discord.py 2.0 - Civo**](https://www.youtube.com/watch?v=Z__BE3sAKLU&t=170s)
+- [**How to Make API calls Using Python**](https://www.geeksforgeeks.org/how-to-make-api-calls-using-python/)
+- [**ChatGPT**](https://chatgpt.com/)
