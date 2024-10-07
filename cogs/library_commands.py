@@ -21,6 +21,52 @@ class LibraryCommands(commands.Cog):
     
     
     
+    @commands.command()
+    async def drills_library(self, ctx): 
+        # Title message
+        embed = discord.Embed(
+            title="Talons Drills",
+            url="https://www.ultiplays.com/invite/wO5BRo2a6jsoNwNOOYnZ",
+            description="Click the above link to get invited!",
+            color=0x8A2BE2
+        )
+        
+        # Add more fields for drill commands
+        embed.add_field(
+            name="",
+            value="[• **Box Drill**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdc86cfbb72c00141ca363?tag=all)",
+            inline=False
+        )
+        
+        embed.add_field(
+            name="",
+            value="[• **Break Shot Drill**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdd0dafbb72c00141ca37b?tag=all)",
+            inline=False
+        )
+        
+        embed.add_field(
+            name="",
+            value="[• **Hit the Box**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdccf2fbb72c00141ca374?tag=all)",
+            inline=False
+        )
+        
+        embed.add_field(
+            name="",
+            value="[• **Texas / Mushroom**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdc0ecfbb72c00141ca353?tag=all)",
+            inline=False
+        )
+        
+        embed.add_field(
+            name="",
+            value="[• **Wishy Washy**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdc601fbb72c00141ca35e?tag=all)",
+            inline=False
+        )
+        
+        # Send the embed message
+        await ctx.send(embed=embed)
+        
+    # NOTE: I want to consider adding youtube resources or articles that help with marking, flicking, etc.
+
     """
     LIBRARY COMMANDS   
     """
@@ -64,6 +110,8 @@ class LibraryCommands(commands.Cog):
         # Send the embed message
         await ctx.send(embed=embed)
         
+    # List of help commands
+    # !help
     @commands.command()
     async def help(self, ctx):
         # Title message
@@ -96,6 +144,8 @@ class LibraryCommands(commands.Cog):
         # Send the embed message
         await ctx.send(embed=embed)
         
+    # List of help commands for captains
+    # !help_captain
     @commands.command()
     @commands.has_role('Captain')
     async def help_captain(self, ctx):
