@@ -20,10 +20,20 @@ class ScrimmageCommands(commands.Cog):
     # !rsvp_scrimmage position-name
     # position_name = 'handler', 'cutter', or 'hybrid'
     @commands.command()
-    async def rsvp_scrimmage(self, ctx, position):
+    async def rsvp_scrimmage(self, ctx, *, position: str=None): 
         # Get username for player RSVPing
         member_name = ctx.author
-        normalized_position = position.lower() # Normalize name
+        normalized_position = position.lower() if position else None # Normalize name
+        
+        # Player did not specify position to sign up for
+        if normalized_position is None:
+            await ctx.send("Please specify 'handler', 'cutter', or 'hybrid'.")
+            return
+            
+        # Player entered invalid position
+        if normalized_position not in ['handler', 'cutter', 'hybrid']:
+            await ctx.send("Invalid position. Please specify 'handler', 'cutter', or 'hybrid'.")
+            return
 
         # Player already signed up for specified position
         # Cutter
@@ -38,7 +48,7 @@ class ScrimmageCommands(commands.Cog):
         elif normalized_position == 'hybrid' and member_name in self.scrimmage_instance.hybrids:
             await ctx.send(f"{member_name.mention}, you are already signed up as a 'hybrid'.")
             return
-
+        
         # Remove from existing position if signed up for other position previously
         # Cutter 
         if member_name in self.scrimmage_instance.cutters:
@@ -53,11 +63,6 @@ class ScrimmageCommands(commands.Cog):
         elif member_name in self.scrimmage_instance.hybrids:
             self.scrimmage_instance.hybrids.remove(member_name)
             await ctx.send(f"{member_name.mention} has been removed from the 'hybrid' list.")
-
-        # Validate player's position
-        if normalized_position not in ['cutter', 'handler', 'hybrid']:
-            await ctx.send("Error: Please specify 'cutter', 'handler', or 'hybrid'")
-            return
 
         # Append user to the new desired position list
         # Cutter 
@@ -83,15 +88,18 @@ class ScrimmageCommands(commands.Cog):
         # Member is cutter
         if member_name in self.scrimmage_instance.cutters:
             self.scrimmage_instance.cutters.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the 'cutter' list.")
+            await ctx.send(f"{member_name.mention} has been removed from the RSVP list.")
         # Member is handler
         elif member_name in self.scrimmage_instance.handlers:
             self.scrimmage_instance.handlers.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the 'handler' list.")
+            await ctx.send(f"{member_name.mention} has been removed from the RSVP list.")
         # Member is hybrid
         elif member_name in self.scrimmage_instance.hybrids:
             self.scrimmage_instance.hybrids.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the 'hybrid' list.")
+            await ctx.send(f"{member_name.mention} has been removed from the RSVP list.")
+        # Not a member of any list
+        else:
+            await ctx.send(f"{member_name.mention} is not a part of the RSVP list")
 
     # View RSVPs for Purple vs. Gold Scrimmage
     # !view_scrimmage_rsvp_list
@@ -149,49 +157,52 @@ class ScrimmageCommands(commands.Cog):
     @commands.command()
     @commands.has_role('Captain') # Captain permissions
     async def sort_teams(self, ctx):
+        # Store in temp list in order to not manipulate original list
+        temp_cutters = self.scrimmage_instance.cutters.copy()
+        temp_handlers = self.scrimmage_instance.handlers.copy()
+        temp_hybrids = self.scrimmage_instance.hybrids.copy()
+        
         # Find number of each position
-        num_cutters = len(self.scrimmage_instance.cutters)
-        num_handlers = len(self.scrimmage_instance.handlers)
-        num_hybrids = len(self.scrimmage_instance.hybrids)
+        num_cutters = len(temp_cutters)
+        num_handlers = len(temp_handlers)
+        num_hybrids = len(temp_hybrids)
         
         # Check if any player exists
         if num_cutters == 0 and num_handlers == 0 and num_hybrids == 0:
             await ctx.send("No players available to sort into teams.")
             return
         
-        """
-        Function: split_even
-        Purpose: Split the number of players 
-        in a list in half 
-        """
-        def split_even(player_list):
-            half = len(player_list) // 2
-            return player_list[:half], player_list[half:]
-        
-        
         # Randomize lists
-        random.shuffle(self.scrimmage_instance.cutters)
-        random.shuffle(self.scrimmage_instance.handlers)
-        random.shuffle(self.scrimmage_instance.hybrids)
+        random.shuffle(temp_cutters)
+        random.shuffle(temp_handlers)
+        random.shuffle(temp_hybrids)
         
         # Clear previous list
         self.scrimmage_instance.purple_team.clear()
         self.scrimmage_instance.gold_team.clear()
         
         # Split handlers
-        purple_handlers, gold_handlers = split_even(self.scrimmage_instance.handlers)
+        purple_handlers, gold_handlers, odd_handler = self.scrimmage_instance.split_even(temp_handlers)
         self.scrimmage_instance.purple_team.extend(purple_handlers)
         self.scrimmage_instance.gold_team.extend(gold_handlers)
         
         # Split hybrids
-        purple_hybrids, gold_hybrids = split_even(self.scrimmage_instance.hybrids)
+        purple_hybrids, gold_hybrids, odd_hybrids = self.scrimmage_instance.split_even(temp_hybrids)
         self.scrimmage_instance.purple_team.extend(purple_hybrids)
         self.scrimmage_instance.gold_team.extend(gold_hybrids)
         
         # Split cutters
-        purple_cutters, gold_cutters = split_even(self.scrimmage_instance.cutters)
+        purple_cutters, gold_cutters, odd_cutters = self.scrimmage_instance.split_even(temp_cutters)
         self.scrimmage_instance.purple_team.extend(purple_cutters)
         self.scrimmage_instance.gold_team.extend(gold_cutters)
+        
+        # Handle odd players
+        for odd_player in [odd_handler, odd_hybrids, odd_cutters]:
+            if odd_player:
+                if len(self.scrimmage_instance.purple_team) <= len(self.scrimmage_instance.gold_team):
+                    self.scrimmage_instance.purple_team.append(odd_player)
+                else:
+                    self.scrimmage_instance.gold_team.append(odd_player)
         
         # Embed list of purple and gold teams
         embed = discord.Embed(
@@ -245,6 +256,12 @@ class ScrimmageCommands(commands.Cog):
     @commands.command()
     @commands.has_role('Captain')
     async def reset_teams(self, ctx):
+        # Clear all rsvp lists
+        self.scrimmage_instance.cutters.clear()
+        self.scrimmage_instance.handlers.clear()
+        self.scrimmage_instance.hybrids.clear()
+        await ctx.send("Successfully reset RSVP lists!")
+        
         # Get roles from server
         purple_team_role = discord.utils.get(ctx.guild.roles, name='Team Purple')
         gold_team_role = discord.utils.get(ctx.guild.roles, name='Team Gold')
@@ -263,11 +280,8 @@ class ScrimmageCommands(commands.Cog):
             await player.remove_roles(gold_team_role)
             
         # Empty lists
-        self.scrimmage_instance.purple_team = []
-        self.scrimmage_instance.gold_team = []
-        self.scrimmage_instance.cutters = []
-        self.scrimmage_instance.handlers = []
-        self.scrimmage_instance.hybrids = []
+        self.scrimmage_instance.purple_team.clear()
+        self.scrimmage_instance.gold_team.clear()
         
         await ctx.send("Players have been removed from purple and gold successfully")
         

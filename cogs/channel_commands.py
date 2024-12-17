@@ -57,7 +57,7 @@ class ChannelCommands(commands.Cog):
                 
         # Position is invalid
         if not ('cutter' in normalized_position or 'handler' in normalized_position):
-            await ctx.send("Error: Please specify 'cutter', 'handler' or both")
+            await ctx.send("Error: Please specify 'cutter', 'handler' or both 'handler cutter'")
             
     # Remove Handler and / or Cutter Role
     # !remove_position position-name
@@ -97,7 +97,7 @@ class ChannelCommands(commands.Cog):
                 
         # Position is invalid
         if not ('cutter' in normalized_position or 'handler' in normalized_position):
-            await ctx.send("Error: Please specify 'cutter', 'handler' or both")
+            await ctx.send("Error: Please specify 'cutter', 'handler' or both 'handler cutter'")
          
     # Add to Tournament Chat
     # !add_tournament_role
@@ -152,11 +152,14 @@ class ChannelCommands(commands.Cog):
         # Role assignment
         # Team Purple
         if 'purple' in normalized_team:
+            # Already team purple
+            if purple_team in member_name.roles:
+                await ctx.send(f"{member_name.mention} is already on Team Purple")
             # Player not assigned to purple
             if purple_team not in member_name.roles:
                 # Check to see if they are a part of gold 
                 if gold_team in member_name.roles:
-                    await ctx.send(f"{member_name.mention}, please leave gold team before you can join purple")
+                    await ctx.send(f"{member_name.mention}, please leave gold team before you can join purple")    
                 # Add purple role
                 else:
                     await member_name.add_roles(purple_team)
@@ -164,6 +167,9 @@ class ChannelCommands(commands.Cog):
         
         # Team gold
         if 'gold' in normalized_team:
+            # Already team gold
+            if gold_team in member_name.roles:
+                await ctx.send(f"{member_name.mention} is already on Team Gold")
             # Player not assigned to gold
             if gold_team not in member_name.roles:
                 # Check to see if they are a part of purple

@@ -13,3 +13,17 @@ class Scrimmage:
         self.handlers = []
         self.hybrids = []
         
+    """
+    Function: split_even
+    Purpose: Split the number of players 
+    in a list in half 
+    """
+    def split_even(self, player_list):
+        # half = len(player_list) // 2
+        # Odd number of players
+        if len(player_list) % 2 != 0:
+            odd_player = player_list.pop()
+            return player_list[:len(player_list) // 2], player_list[len(player_list) //2:], odd_player
+        else:
+            return player_list[:len(player_list) // 2], player_list[len(player_list) //2:], None
+        

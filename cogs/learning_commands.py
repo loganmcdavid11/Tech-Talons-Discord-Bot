@@ -7,6 +7,7 @@ discord bot
 """
 import discord
 import requests
+import keys_ids.channel_ids
 from discord.ext import commands
 
 # Learning Commands Class
@@ -35,6 +36,7 @@ class LearningCommands(commands.Cog):
         await ctx.send(embed=em)
         
     # !cat
+    """
     @commands.command()
     async def cat(self, ctx):
         embed = discord.Embed(
@@ -53,16 +55,18 @@ class LearningCommands(commands.Cog):
         embed.add_field(name="Field_name", value="Description", inline=True)
         embed.set_footer(text="Footer")
         await ctx.send(embed=embed)
-        
+    """
             
-
-"""
+            
+# NOTE: This is commented out while I am figuring out JSON file implementation
+    """
     # Welcome new member
-    @commands.event
-    async def on_member_join(member, self):
-        channel = self.bot.get_channel(apikeys.WELCOME_CHANNEL_ID)
-        await channel.send("Welcome to the Tennessee Tech Talons!")
-"""
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = self.bot.get_channel(keys_ids.channel_ids.GENERAL_CHANNEL_ID)
+        if channel:
+            await channel.send(f"Welcome to the Tennessee Tech Talons {member.mention}!")
+    """
 
 
 # Set up Learning bot

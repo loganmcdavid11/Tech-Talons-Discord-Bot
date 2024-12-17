@@ -26,3 +26,4 @@ class Tournament:
                 f"AOF Time: {self.aof_time}\n"
                 f"Field Address: {self.field_address}\n"
                 f"Lodging Address: {self.lodging_address}")
+        

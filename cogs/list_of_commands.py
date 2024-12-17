@@ -118,7 +118,8 @@ class ListOfCommands(commands.Cog):
         embed.add_field(
             name="**RSVP/unRSVP from Scrimmage**",
             value=(
-                "`!rsvp_scrimmage`\n"
+                "`!rsvp_scrimmage <position>`\n"
+                "- **<position>** = *handler*, *cutter*, or *hybrid*\n"
                 "`!unrsvp_scrimmage`"
             ),
             inline=False
@@ -187,7 +188,7 @@ class ListOfCommands(commands.Cog):
             value=(
                 "`!choose_position <position name>`\n"
                 "`!remove_position <position name>`\n"
-                "**<position name>** = *cutter*, *handler* or *cutter handler*"
+                "- **<position name>** = *cutter*, *handler* or *cutter handler*"
             ),
             inline=False
         )
@@ -208,7 +209,7 @@ class ListOfCommands(commands.Cog):
             value=(
                 "`!add_purple_gold <team name>`\n"
                 "`!remove_pruple_gold <team name>`\n"
-                "**<team name>** = *purple* or *gold*"              
+                "- **<team name>** = *purple* or *gold*"              
             ),
             inline=False
         )
@@ -216,6 +217,40 @@ class ListOfCommands(commands.Cog):
         # Send the embed message
         await ctx.send(embed=embed)
 
+    """
+    LIBRARY COMMANDS 
+    """
+    @commands.command()
+    async def library_commands(self, ctx):
+        # Title message
+        embed = discord.Embed(
+            title="Library Commands",
+            color=0x006400
+        )
+        
+        # Drills
+        embed.add_field(
+            name="Drills",
+            value="`!drills`",
+            inline=False
+        )
+        
+        # Playbook
+        embed.add_field(
+            name="Playbook",
+            value="`!playbook`",
+            inline=False
+        )
+        
+        # Rulebook
+        embed.add_field(
+            name="USAU Rulebook",
+            value="`!rulebook`",
+            inline=False
+        )
+        
+        # Send the embed message
+        await ctx.send(embed=embed)
         
 # Set up List of Commands bot
 async def setup(bot):
