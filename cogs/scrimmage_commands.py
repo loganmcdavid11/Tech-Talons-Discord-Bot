@@ -6,6 +6,7 @@ scrimamge scheduling
 """
 import discord
 import random
+import json
 from discord.ext import commands
 from classes.scrimmage import Scrimmage
 
@@ -22,7 +23,7 @@ class ScrimmageCommands(commands.Cog):
     @commands.command()
     async def rsvp_scrimmage(self, ctx, *, position: str=None): 
         # Get username for player RSVPing
-        member_name = ctx.author
+        member_name = str(ctx.author)
         normalized_position = position.lower() if position else None # Normalize name
         
         # Player did not specify position to sign up for
@@ -34,107 +35,117 @@ class ScrimmageCommands(commands.Cog):
         if normalized_position not in ['handler', 'cutter', 'hybrid']:
             await ctx.send("Invalid position. Please specify 'handler', 'cutter', or 'hybrid'.")
             return
-
+        
+        # Read the JSON file
+        with open('scrimmage.json', 'r') as f:
+            data = json.load(f)
+            
+        # Initialize the position lists in the JSON file if not already present
+        if 'cutters' not in data:
+            data['cutters'] = []
+        if 'handlers' not in data:
+            data['handlers'] = []
+        if 'hybrids' not in data:
+            data['hybrids'] = []
+            
         # Player already signed up for specified position
-        # Cutter
-        if normalized_position == 'cutter' and member_name in self.scrimmage_instance.cutters:
-            await ctx.send(f"{member_name.mention}, you are already signed up as a 'cutter'.")
-            return
-        # Handler
-        elif normalized_position == 'handler' and member_name in self.scrimmage_instance.handlers:
-            await ctx.send(f"{member_name.mention}, you are already signed up as a 'handler'.")
-            return
-        # Hybrid
-        elif normalized_position == 'hybrid' and member_name in self.scrimmage_instance.hybrids:
-            await ctx.send(f"{member_name.mention}, you are already signed up as a 'hybrid'.")
+        if member_name in data[normalized_position + 's']:
+            await ctx.send(f"{member_name}, you are already signed up as a '{normalized_position}'.")
             return
         
-        # Remove from existing position if signed up for other position previously
-        # Cutter 
-        if member_name in self.scrimmage_instance.cutters:
-            self.scrimmage_instance.cutters.remove(member_name)
-            # NOTE: I do not want these output lines in first launch
-            await ctx.send(f"{member_name.mention} has been removed from the 'cutter' list.")
-        # Handler
-        elif member_name in self.scrimmage_instance.handlers:
-            self.scrimmage_instance.handlers.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the 'handler' list.")
-        # Hybrid
-        elif member_name in self.scrimmage_instance.hybrids:
-            self.scrimmage_instance.hybrids.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the 'hybrid' list.")
+        # Remove user from any other position list
+        for pos in ['cutters', 'handlers', 'hybrids']:
+            if member_name in data[pos]:
+                data[pos].remove(member_name)
 
         # Append user to the new desired position list
-        # Cutter 
-        if normalized_position == 'cutter':
-            self.scrimmage_instance.cutters.append(member_name)
-        # Handler
-        elif normalized_position == 'handler':
-            self.scrimmage_instance.handlers.append(member_name)
-        # Hybrid
-        else: 
-            self.scrimmage_instance.hybrids.append(member_name)
+        data[normalized_position + 's'].append(member_name)
+        
+        # Write the updated data back to the JSON file
+        with open('scrimmage.json', 'w') as f:
+            json.dump(data, f, indent=4)
             
-        await ctx.send(f"{member_name.mention} has signed up as a '{normalized_position}' for gold vs. purple")
+        await ctx.send(f"{ctx.author.mention} has signed up as a '{normalized_position}' for Purple vs. Gold")
         
     # Players unRSVP from Purple vs. Gold Scrimmage
     # unrsvp_scrimmage
     @commands.command()
     async def unrsvp_scrimmage(self, ctx):
         # Get username for player unRSVPing
-        member_name = ctx.author
+        member_name = str(ctx.author)
+        
+        # Read the JSON file
+        with open('scrimmage.json', 'r') as f:
+            data = json.load(f)
+            
+        # Initialize the position lists in the JSON file if not already present
+        if 'cutters' not in data:
+            data['cutters'] = []
+        if 'handlers' not in data:
+            data['handlers'] = []
+        if 'hybrids' not in data:
+            data['hybrids'] = []
         
         # Remove player from scrimmage
         # Member is cutter
-        if member_name in self.scrimmage_instance.cutters:
-            self.scrimmage_instance.cutters.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the RSVP list.")
+        if member_name in data['cutters']:
+            data['cutters'].remove(member_name)
+            response = f"{ctx.author.mention} has been removed from the RSVP list."
         # Member is handler
-        elif member_name in self.scrimmage_instance.handlers:
-            self.scrimmage_instance.handlers.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the RSVP list.")
+        elif member_name in data['handlers']:
+            data['handlers'].remove(member_name)
+            response = f"{ctx.author.mention} has been removed from the RSVP list."
         # Member is hybrid
-        elif member_name in self.scrimmage_instance.hybrids:
-            self.scrimmage_instance.hybrids.remove(member_name)
-            await ctx.send(f"{member_name.mention} has been removed from the RSVP list.")
+        elif member_name in data['hybrids']:
+            data['hybrids'].remove(member_name)
+            response = f"{ctx.author.mention} has been removed from the RSVP list."
         # Not a member of any list
         else:
-            await ctx.send(f"{member_name.mention} is not a part of the RSVP list")
+            response = f"{ctx.author.mention} is not a part of the RSVP list"
+            
+        # Write the updated data back to the JSON file
+        with open('scrimmage.json', 'w') as f:
+            json.dump(data, f, indent=4)
+            
+        await ctx.send(response)
 
     # View RSVPs for Purple vs. Gold Scrimmage
     # !view_scrimmage_rsvp_list
     @commands.command()
     @commands.has_role('Captain') # Captain permissions
     async def view_scrimmage_rsvp_list(self, ctx):
-        # Get list of players for each position
-        cutters = self.scrimmage_instance.cutters
-        handlers = self.scrimmage_instance.handlers
-        hybrids = self.scrimmage_instance.hybrids
+        # Read the JSON file
+        with open('scrimmage.json', 'r') as f:
+            data = json.load(f)
         
         # Total RSVPs
-        total = len(cutters) + len(handlers) + len(hybrids)
+        total = len(data['cutters']) + len(data['handlers']) + len(data['hybrids'])
         
         # If there is an RSVP
         if total != 0:
         
             # Embed list of players who RSVP'd
-            embed = discord.Embed(title="Purple vs. Gold RSVP Summary", color=0x816CB4)
+            embed = discord.Embed(
+                title="Purple vs. Gold RSVP Summary",
+                color=0x816CB4
+            )
+            
             # Handlers
             embed.add_field(
                 name="Handlers", 
-                value="\n".join([player.name for player in handlers]) or "N/A",
+                value="\n".join(data['handlers']) or "N/A",
                 inline=False
             )
             # Cutters
             embed.add_field(
                 name="Cutters", 
-                value="\n".join([player.name for player in cutters]) or "N/A",
+                value="\n".join(data['cutters']) or "N/A",
                 inline=False
             )
             # Hybrids
             embed.add_field(
                 name="Hybrids", 
-                value="\n".join([player.name for player in hybrids]) or "N/A",
+                value="\n".join(data['hybrids']) or "N/A",
                 inline=False
             )
             # Total count
@@ -157,52 +168,72 @@ class ScrimmageCommands(commands.Cog):
     @commands.command()
     @commands.has_role('Captain') # Captain permissions
     async def sort_teams(self, ctx):
-        # Store in temp list in order to not manipulate original list
-        temp_cutters = self.scrimmage_instance.cutters.copy()
-        temp_handlers = self.scrimmage_instance.handlers.copy()
-        temp_hybrids = self.scrimmage_instance.hybrids.copy()
+        # Read the JSON file
+        with open('scrimmage.json', 'r') as f:
+            data = json.load(f)
         
+        # Store in temp list in order to not manipulate original list
+        temp_cutters = data.get('cutters', [])
+        temp_handlers = data.get('handlers', [])
+        temp_hybrids = data.get('hybrids', [])
+        
+        # Check if any player exists
+        if not temp_cutters and not temp_handlers and not temp_hybrids:
+            await ctx.send("No players available to sort into teams.")
+            return
+        
+        """
         # Find number of each position
         num_cutters = len(temp_cutters)
         num_handlers = len(temp_handlers)
         num_hybrids = len(temp_hybrids)
-        
-        # Check if any player exists
-        if num_cutters == 0 and num_handlers == 0 and num_hybrids == 0:
-            await ctx.send("No players available to sort into teams.")
-            return
+        """
         
         # Randomize lists
         random.shuffle(temp_cutters)
         random.shuffle(temp_handlers)
         random.shuffle(temp_hybrids)
         
-        # Clear previous list
-        self.scrimmage_instance.purple_team.clear()
-        self.scrimmage_instance.gold_team.clear()
+        """
+        Function: split_even
+        Purpose: Split the number of players 
+        in a list in half 
+        """
+        def split_even(player_list):
+            # Odd number of players
+            if len(player_list) % 2 != 0:
+                odd_player = player_list[-1]  # Take the last player as the odd player
+                player_list = player_list[:-1]  # Remove the odd player from the list
+                return player_list[:len(player_list) // 2], player_list[len(player_list) // 2:], odd_player
+            else:
+                return player_list[:len(player_list) // 2], player_list[len(player_list) // 2:], None
+                
+        # Initialize teams
+        gold_team = []
+        purple_team = []
         
         # Split handlers
-        purple_handlers, gold_handlers, odd_handler = self.scrimmage_instance.split_even(temp_handlers)
-        self.scrimmage_instance.purple_team.extend(purple_handlers)
-        self.scrimmage_instance.gold_team.extend(gold_handlers)
+        purple_handlers, gold_handlers, odd_handler = split_even(temp_handlers)
+        purple_team.extend(purple_handlers)
+        gold_team.extend(gold_handlers)
         
         # Split hybrids
-        purple_hybrids, gold_hybrids, odd_hybrids = self.scrimmage_instance.split_even(temp_hybrids)
-        self.scrimmage_instance.purple_team.extend(purple_hybrids)
-        self.scrimmage_instance.gold_team.extend(gold_hybrids)
+        purple_hybrids, gold_hybrids, odd_hybrids = split_even(temp_hybrids)
+        purple_team.extend(purple_hybrids)
+        gold_team.extend(gold_hybrids)
         
         # Split cutters
-        purple_cutters, gold_cutters, odd_cutters = self.scrimmage_instance.split_even(temp_cutters)
-        self.scrimmage_instance.purple_team.extend(purple_cutters)
-        self.scrimmage_instance.gold_team.extend(gold_cutters)
+        purple_cutters, gold_cutters, odd_cutters = split_even(temp_cutters)
+        purple_team.extend(purple_cutters)
+        gold_team.extend(gold_cutters)
         
         # Handle odd players
         for odd_player in [odd_handler, odd_hybrids, odd_cutters]:
             if odd_player:
-                if len(self.scrimmage_instance.purple_team) <= len(self.scrimmage_instance.gold_team):
-                    self.scrimmage_instance.purple_team.append(odd_player)
+                if len(purple_team) <= len(gold_team):
+                    purple_team.append(odd_player)
                 else:
-                    self.scrimmage_instance.gold_team.append(odd_player)
+                    gold_team.append(odd_player)
         
         # Embed list of purple and gold teams
         embed = discord.Embed(
@@ -213,26 +244,36 @@ class ScrimmageCommands(commands.Cog):
         # Purple team
         embed.add_field(
             name="Purple Team", 
-            value="\n".join(player.name for player in self.scrimmage_instance.purple_team) or "N/A",
+            value="\n".join(purple_team) or "N/A",
             inline=False
         )
         # Gold team
         embed.add_field(
             name="Gold Team",
-            value="\n".join(player.name for player in self.scrimmage_instance.gold_team) or "N/A",
+            value="\n".join(gold_team) or "N/A",
             inline=False
         )
         
         # Output list to channel
         await ctx.send(embed=embed)
+            
+        # JSON instances of gold team
+        data['purple_team'] = purple_team
+        data['gold_team'] = gold_team
+        
+        # Write the updated data back to the JSON file
+        with open('scrimmage.json', 'w') as f:
+            json.dump(data, f, indent=4)
     
-    # Approve Purple vs. Gold teams and Assign Players to Team
-    # !approve_teams
     @commands.command()
-    @commands.has_role('Captain') # Captain permissions
+    @commands.has_role('Captain')  # Captain permissions
     async def approve_teams(self, ctx):
+        # Read the JSON file
+        with open('scrimmage.json', 'r') as f:
+            data = json.load(f)
+        
         # Not enough players to schedule event
-        if not self.scrimmage_instance.purple_team and not self.scrimmage_instance.gold_team:
+        if not data.get('purple_team') or not data.get('gold_team'):
             await ctx.send("Not enough players to schedule this event")
             return
         
@@ -240,52 +281,70 @@ class ScrimmageCommands(commands.Cog):
         purple_team_role = discord.utils.get(ctx.guild.roles, name='Team Purple')
         gold_team_role = discord.utils.get(ctx.guild.roles, name='Team Gold')
         
-        # Assign purple team
-        for player in self.scrimmage_instance.purple_team:
-            await player.add_roles(purple_team_role)
-            
-        # Assign gold team
-        for player in self.scrimmage_instance.gold_team:
-            await player.add_roles(gold_team_role)
-            
-    
-        await ctx.send("Players have been assigned purple or gold successfully")
+        # Check if the roles exist
+        if not purple_team_role or not gold_team_role:
+            await ctx.send("One or both team roles do not exist. Please create them first.")
+            return
+
+        # Assign purple team roles
+        for player_name in data['purple_team']:
+            player = discord.utils.get(ctx.guild.members, name=player_name)
+            if player:  # If player is found
+                await player.add_roles(purple_team_role)
+        
+        # Assign gold team roles
+        for player_name in data['gold_team']:
+            player = discord.utils.get(ctx.guild.members, name=player_name)
+            if player:  # If player is found
+                await player.add_roles(gold_team_role)
+        
+        await ctx.send("Players have been assigned to their respective teams.")
+
       
-    # Reset Purple and Gold Teams
-    # !reset_teams
     @commands.command()
     @commands.has_role('Captain')
     async def reset_teams(self, ctx):
-        # Clear all rsvp lists
-        self.scrimmage_instance.cutters.clear()
-        self.scrimmage_instance.handlers.clear()
-        self.scrimmage_instance.hybrids.clear()
-        await ctx.send("Successfully reset RSVP lists!")
+        # Read the JSON file
+        with open('scrimmage.json', 'r') as f:
+            data = json.load(f)
+        
+        # Clear all rsvp lists in memory
+        data['cutters'] = []
+        data['handlers'] = []
+        data['hybrids'] = []
         
         # Get roles from server
         purple_team_role = discord.utils.get(ctx.guild.roles, name='Team Purple')
         gold_team_role = discord.utils.get(ctx.guild.roles, name='Team Gold')
         
+        # Check if the roles exist
+        if not purple_team_role or not gold_team_role:
+            await ctx.send("One or both of the team roles do not exist.")
+            return
+        
         # Nobody has purple or gold role
         if not purple_team_role.members and not gold_team_role.members:
             await ctx.send("One or both of the roles are already empty")
-            return
+        else:
+            # Remove players on purple team
+            for player in purple_team_role.members:
+                await player.remove_roles(purple_team_role)
+            
+            # Remove players on gold team
+            for player in gold_team_role.members:
+                await player.remove_roles(gold_team_role)
         
-        # Remove players on purple team
-        for player in purple_team_role.members:
-            await player.remove_roles(purple_team_role)
-            
-        # Remove players on gold team
-        for player in gold_team_role.members:
-            await player.remove_roles(gold_team_role)
-            
-        # Empty lists
-        self.scrimmage_instance.purple_team.clear()
-        self.scrimmage_instance.gold_team.clear()
+        # Empty teams
+        data['purple_team'] = []
+        data['gold_team'] = []
+        
+        # Write the updated data back to the JSON file
+        with open('scrimmage.json', 'w') as f:
+            json.dump(data, f, indent=4)
         
         await ctx.send("Players have been removed from purple and gold successfully")
-        
-        
+
+            
         
 # Set up Tournament bot
 async def setup(bot):
