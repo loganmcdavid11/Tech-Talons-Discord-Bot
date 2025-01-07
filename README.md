@@ -115,4 +115,5 @@ Please note that this bot is still under development.
 - [**How to make a Discord Bot in Python! (2022) - James S**](https://www.youtube.com/playlist?list=PL-7Dfw57ZZVRB4N7VWPjmT0Q-2FIMNBMP)
 - [**Making a Discord Bot | Part 10: Cogs | Discord.py 2.0 - Civo**](https://www.youtube.com/watch?v=Z__BE3sAKLU&t=170s)
 - [**How to Make API calls Using Python**](https://www.geeksforgeeks.org/how-to-make-api-calls-using-python/)
+- [**How to make a Discord bot in Python! | Storing Data and making a basic AFK command**](https://www.youtube.com/watch?v=tIN-_-XobKg&t=500s)
 - [**ChatGPT**](https://chatgpt.com/)
