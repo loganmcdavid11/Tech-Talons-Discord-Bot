@@ -20,7 +20,7 @@ class LibraryCommands(commands.Cog):
         print("Library Bot is Online")
     
     
-    
+    # Ultiplays 
     @commands.command()
     async def drills(self, ctx): 
         # Title message
@@ -31,31 +31,35 @@ class LibraryCommands(commands.Cog):
             color=0x8A2BE2
         )
         
-        # Add more fields for drill commands
+        # Box Drill
         embed.add_field(
             name="",
             value="• [**Box Drill**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdc86cfbb72c00141ca363?tag=all)",
             inline=False
         )
         
+        # Break Shot Drill
         embed.add_field(
             name="",
             value="• [**Break Shot Drill**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdd0dafbb72c00141ca37b?tag=all)",
             inline=False
         )
         
+        # Hit the Box Drill
         embed.add_field(
             name="",
             value="• [**Hit the Box**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdccf2fbb72c00141ca374?tag=all)",
             inline=False
         )
         
+        # Texas Drill
         embed.add_field(
             name="",
             value="• [**Texas / Mushroom**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdc0ecfbb72c00141ca353?tag=all)",
             inline=False
         )
         
+        # Wishy Washy
         embed.add_field(
             name="",
             value="• [**Wishy Washy**](https://www.ultiplays.com/teams/66fdc066fbb72c00141ca34c/games/66fdc601fbb72c00141ca35e?tag=all)",
@@ -102,48 +106,56 @@ class LibraryCommands(commands.Cog):
             color=0xe6451f
         )
         
+        # Ho Stack pt1
         embed.add_field(
             name="",
             value="• [**Ho Stack - Box (pt. 1)**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/67115b80394a9c00145c1807?tag=all)",
             inline=False
         )
         
+        # Ho Stack pt2
         embed.add_field(
             name="",
             value="• [**Ho Stack - Box (pt. 2)**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/67115b80394a9c00145c1807?tag=all)",
             inline=False
         )
         
+        # Ho Stack pt3
         embed.add_field(
             name="",
             value="• [**Ho Stack - Box (pt. 3)**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/67117808394a9c00145c1868?tag=all)",
             inline=False
         )
         
+        # Ho Stack Diamond pt1
         embed.add_field(
             name="",
             value="• [**Ho Stack - Diamond (pt. 1)**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/66d4a8ad17773700144b2198?tag=all)",
             inline=False
         )
         
+        # Ho Stack Diamond pt2
         embed.add_field(
             name="",
             value="• [**Ho Stack - Diamond (pt. 2)**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/66d4aee717773700144b219d?tag=all)",
             inline=False
         )
         
+        # Endzone Hard
         embed.add_field(
             name="",
             value="• [**Endzone - Hard**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/67117fab394a9c00145c186c?tag=all)",
             inline=False
         )
         
+        # Endzone Soft
         embed.add_field(
             name="",
             value="• [**Endzone - Soft**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/66d4afd717773700144b219f?tag=all)",
             inline=False
         )
         
+        # Philly
         embed.add_field(
             name="",
             value="• [**Philly - Sideline Play**](https://www.ultiplays.com/teams/66d4a88217773700144b2194/games/66d4b1d017773700144b21a1?tag=all)",

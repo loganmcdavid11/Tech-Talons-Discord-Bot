@@ -34,6 +34,11 @@ class ChannelCommands(commands.Cog):
         # Normalize position(s)
         normalized_position = [pos.lower() for pos in position]
         
+        # Check if roles exist
+        if not cutter or not not handler:
+            await ctx.send("One or both position roles do not exist. Please create them first")
+            return
+        
         # Role assignment
         # Cutter
         if 'cutter' in normalized_position:
@@ -74,6 +79,11 @@ class ChannelCommands(commands.Cog):
         # Normalize position(s)
         normalized_position = [pos.lower() for pos in position]
         
+        # Check if roles exist
+        if not cutter or not not handler:
+            await ctx.send("One or both position roles do not exist. Please create them first")
+            return
+        
         # Role removal
         # Cutter
         if 'cutter' in normalized_position:
@@ -109,6 +119,11 @@ class ChannelCommands(commands.Cog):
         # Get role from server
         tournament = discord.utils.get(ctx.guild.roles, name='Tournament')
         
+        # Check if role exist
+        if not tournament:
+            await ctx.send("Tournament roles do not exist. Please create them first")
+            return
+        
         # Player not assigned tournament role
         if tournament not in member_name.roles:
             await member_name.add_roles(tournament)
@@ -126,6 +141,11 @@ class ChannelCommands(commands.Cog):
         
         # Get role from server
         tournament = discord.utils.get(ctx.guild.roles, name='Tournament')
+        
+        # Check if role exist
+        if not tournament:
+            await ctx.send("Tournament roles do not exist. Please create them first")
+            return
         
         # Player is assigned tournament role
         if tournament in member_name.roles:
@@ -148,6 +168,11 @@ class ChannelCommands(commands.Cog):
         
         # Normalize position
         normalized_team = team.lower()
+        
+        # Check if the roles exist
+        if not purple_team or not gold_team:
+            await ctx.send("One or both team roles do not exist. Please create them first.")
+            return
         
         # Role assignment
         # Team Purple
@@ -197,6 +222,11 @@ class ChannelCommands(commands.Cog):
         
         # Normalize position
         normalized_team = team.lower()
+        
+        # Check if the roles exist
+        if not purple_team or not gold_team:
+            await ctx.send("One or both team roles do not exist. Please create them first.")
+            return
         
         # Role removal
         # Team purple

@@ -8,14 +8,12 @@ import discord
 import random
 import json
 from discord.ext import commands
-from classes.scrimmage import Scrimmage
 
 # Scrimmage Commands Class
 class ScrimmageCommands(commands.Cog):
     # Constructor
     def __init__(self, bot):
         self.bot = bot
-        self.scrimmage_instance = Scrimmage() # Instance of scrimmage class 
         
     # Players Rsvp for Purple vs. Gold Scrimamge
     # !rsvp_scrimmage position-name

@@ -10,10 +10,6 @@ import json
 import os
 import keys_ids.channel_ids as channel_ids
 from discord.ext import commands
-from classes.tournament import Tournament
-
-# List of tournaments
-tournament_list = []
 
 # Tournament Commands Class
 class TournamentCommands(commands.Cog):

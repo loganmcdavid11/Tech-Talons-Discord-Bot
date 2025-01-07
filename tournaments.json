@@ -1,26 +1,3 @@
 {
-    "dave baldwin": {
-        "name": "Dave Baldwin",
-        "start_date": "Sept. 11",
-        "end_date": "Sept. 12",
-        "location": "Knoxville, TN",
-        "aof_time": "8:00 A.M.",
-        "field_address": "234 vol nation rd",
-        "lodging_address": "567 callie house cr",
-        "rsvp_list": [
-            "logan_mcdavid"
-        ]
-    },
-    "romp in a swamp": {
-        "name": "Romp in a Swamp",
-        "start_date": "Nov. 28th",
-        "end_date": "Nov. 29th",
-        "location": "Chattanooga, TN",
-        "aof_time": "8:30 A.M.",
-        "field_address": "135 ian rd",
-        "lodging_address": "789 fortnite dr",
-        "rsvp_list": [
-            "logan_mcdavid"
-        ]
-    }
+
 }

@@ -21,11 +21,6 @@ class LearningCommands(commands.Cog):
     async def on_ready(self):
         print("Learning Bot is Online!")
         
-    # !ping
-    @commands.command()
-    async def ping(self, ctx):
-        await ctx.send("Pong") 
-        
     # !dog
     @commands.command()
     async def dog(self, ctx):
@@ -57,8 +52,6 @@ class LearningCommands(commands.Cog):
         await ctx.send(embed=embed)
     """
             
-            
-# NOTE: This is commented out while I am figuring out JSON file implementation
     """
     # Welcome new member
     @commands.Cog.listener()

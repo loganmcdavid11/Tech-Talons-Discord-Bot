@@ -29,14 +29,12 @@ async def main():
     await client.start(apikeys.BOT_TOKEN)
             
 
-
 # Main bot turning on
 @client.event
 async def on_ready():
     print('The bot is now ready for use captain!')
     print('--------------------------------------')
-    
-    
+        
 
 # Execute main function and run the Talons Bot
 asyncio.run(main())
