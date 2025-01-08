@@ -76,8 +76,7 @@ Please note that this bot is still under development.
 ##### Commands:
 - **RSVP for Scrimmage:** `!rsvp_scrimmage <position name>`
   - `<position name>` = *handler*, *cutter*, or *hybrid*
-- **unRSVP from Scrimmage:** `!unrsvp_scrimmage <position name>`
-  - `<position name>` = *handler*, *cutter*, or *hybrid*
+- **unRSVP from Scrimmage:** `!unrsvp_scrimmage`
 - **View RSVP List for Scrimmage:** `!view_scrimmage_rsvp_list`
 - **Randomly Sort Teams:** `!sort_teams`
 - **Approve Sorted Teams:** `!approve_teams`
