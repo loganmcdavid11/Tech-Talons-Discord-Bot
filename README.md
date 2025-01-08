@@ -103,10 +103,11 @@ Please note that this bot is still under development.
 - **List of Channel Commands:** `!channel_commands`
 #### Library
 ##### Permissions:
-- Members can view important information such as the rules or the playbook
+- Members can view important information such as the rules or playbook
 ##### Commands
 - **View Offical Ultimate Frisbee Rulebook:** `!rulebook`
 - **View Talons Official Playbook:** `!playbook`
+- **View Talons Drills:** `!drills`
 
 ---
 
