@@ -2,7 +2,7 @@
 
 A custom-built Discord bot for Tennessee Tech's Ultimate Frisbee team. 
 
-Please note that this bot is still under development.
+Bot 1.0 is live and running!
 
 **Goal:** To automate and simplify tasks for team members, allowing easy access to information through the bot. Increase member engagement and provide tips and resources for those seeking help with Ultimate Frisbee topics.
 
@@ -39,6 +39,7 @@ Please note that this bot is still under development.
 
 #### Using the Bot
 - To start the bot, type in your terminal `python3 main.py`
+  - Note that for the bot to run 24/7, it needs to run on a server or a computer running at all times. This specific bot runs on a raspberry pi
 - When typing a command, use the prefix **'!'** followed by the command name.
 - For a list of available commands, type `!help`.
 
@@ -116,4 +117,5 @@ Please note that this bot is still under development.
 - [**Making a Discord Bot | Part 10: Cogs | Discord.py 2.0 - Civo**](https://www.youtube.com/watch?v=Z__BE3sAKLU&t=170s)
 - [**How to Make API calls Using Python**](https://www.geeksforgeeks.org/how-to-make-api-calls-using-python/)
 - [**How to make a Discord bot in Python! | Storing Data and making a basic AFK command**](https://www.youtube.com/watch?v=tIN-_-XobKg&t=500s)
+- [**How to make a Discord Bot in Python and host it on your Raspberry Pi! (2021)**](https://www.youtube.com/watch?v=JEcUyuk3uOs&t=355s)
 - [**ChatGPT**](https://chatgpt.com/)
