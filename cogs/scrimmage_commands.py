@@ -5,6 +5,7 @@ Purpose: Contains commands associated with
 scrimamge scheduling
 """
 import discord
+import asyncio
 import random
 import json
 from discord.ext import commands
@@ -21,7 +22,7 @@ class ScrimmageCommands(commands.Cog):
     @commands.command()
     async def rsvp_scrimmage(self, ctx, *, position: str=None): 
         # Get username for player RSVPing
-        member_name = str(ctx.author)
+        member_name = ctx.author.name
         normalized_position = position.lower() if position else None # Normalize name
         
         # Player did not specify position to sign up for
@@ -70,7 +71,7 @@ class ScrimmageCommands(commands.Cog):
     @commands.command()
     async def unrsvp_scrimmage(self, ctx):
         # Get username for player unRSVPing
-        member_name = str(ctx.author)
+        member_name = ctx.author.name
         
         # Read the JSON file
         with open('scrimmage.json', 'r') as f:
@@ -106,6 +107,93 @@ class ScrimmageCommands(commands.Cog):
             json.dump(data, f, indent=4)
             
         await ctx.send(response)
+        
+    # Modify rsvp status for Purple vs. Gold Scrimmage
+    # !modify_scrimmage_rsvp_list rsvp username 
+    # !modify_scrimmage_rsvp_list unrsvp username
+    @commands.command()
+    @commands.has_role('Captain') # Captain permissions 
+    async def modify_scrimmage_rsvp_list(self, ctx, action: str, username: str):
+        # Check to see if user exists
+        member = ctx.guild.get_member_named(username)
+        if member is None:
+            await ctx.send(f"{username} is not a member of the server.")
+            return
+        
+        # Read the JSON file
+        with open('scrimmage.json', 'r') as f:
+            data = json.load(f)
+            
+        # Initialize the position lists in the JSON file if not already present
+        if 'cutters' not in data:
+            data['cutters'] = []
+        if 'handlers' not in data:
+            data['handlers'] = []
+        if 'hybrids' not in data:
+            data['hybrids'] = []
+            
+        # Load in position lists
+        handlers = data.get('handlers', [])
+        cutters = data.get('cutters', [])
+        hybrids = data.get('hybrids', [])
+        
+        # RSVP player
+        if action.lower() == 'rsvp':
+            # Player already RSVP'd
+            if username in handlers or username in cutters or username in hybrids:
+                await ctx.send(f"{username} is already RSVP'd.")
+    
+            # RSVP player now
+            else: 
+                # Ask for position name
+                await ctx.send(f"Please specify whether {username} is a 'handler', 'cutter', or 'hybrid' by simply typing one of the following within the next 45 seconds.")
+                
+                # Wait 30 seconds for response 
+                try:
+                    # https://stackoverflow.com/questions/66393331/how-can-i-use-the-wait-for-in-my-clearall-command-discord-py
+                    response = await self.bot.wait_for('message', # Wait for message event
+                                                       timeout = 45.0, # 45 second buffer
+                                                       check=lambda m: # Take one argument
+                                                           m.author == ctx.author # Same user from original command call
+                                                           and m.content.lower() in ['handler', 'cutter', 'hybrid'])
+                
+                    # Await for handler, cutter, or hybrid 
+                    if response.content.lower() == 'handler':
+                        handlers.append(username)
+                        await ctx.send(f"{username} has been added to the handler list.")
+                    elif response.content.lower() == 'cutter':
+                        cutters.append(username)
+                        await ctx.send(f"{username} has been added to the cutter list.")
+                    elif response.content.lower() == 'hybrid':
+                        hybrids.append(username)
+                        await ctx.send(f"{username} has been added to the hybrid list.")
+
+                # Time runs out
+                except asyncio.TimeoutError:
+                    await ctx.send("You took too long to respond. The RSVP was not completed.")
+                    return
+            
+        # UnRSVP player
+        elif action.lower() == 'unrsvp':
+            # Check if user is in handler, cutter, or hybrid list, if so remove them
+            if username in handlers:
+                handlers.remove(username)
+                await ctx.send(f"{username} has been removed from the scrimmage.")
+            elif username in cutters:
+                cutters.remove(username)
+                await ctx.send(f"{username} has been removed from the scrimmage.")
+            elif username in hybrids:
+                hybrids.remove(username)
+                await ctx.send(f"{username} has been removed from the scrimmage.")
+            # Not in RSVP list
+            else:
+                await ctx.send(f"{username} is not in the scrimmage RSVP list.")
+    
+        # Write the updated data back to the JSON file
+        with open('scrimmage.json', 'w') as f:
+            json.dump(data, f, indent=4)
+    
+
 
     # View RSVPs for Purple vs. Gold Scrimmage
     # !view_scrimmage_rsvp_list
@@ -255,7 +343,7 @@ class ScrimmageCommands(commands.Cog):
         # Output list to channel
         await ctx.send(embed=embed)
             
-        # JSON instances of gold team
+        # JSON instances of purple and gold team
         data['purple_team'] = purple_team
         data['gold_team'] = gold_team
         

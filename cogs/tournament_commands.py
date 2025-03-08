@@ -7,6 +7,7 @@ specific tournament
 """
 import discord
 import json
+import asyncio
 import os
 import keys_ids.channel_ids as channel_ids
 from discord.ext import commands
@@ -240,6 +241,94 @@ class TournamentCommands(commands.Cog):
         await channel.send(f"{member_name} is no longer RSVP'd for '{data[temp_name]['name']}'.")
         await ctx.send(f"{member_name} is no longer RSVP'd for '{data[temp_name]['name']}'.")
 
+    # Modify rsvp status for specific tournament
+    # !modify_tournament_rsvp_list rsvp username 
+    # !modify_tournament_rsvp_list unrsvp username
+    # NOTE: I want to implement a similar method as scrimmage so that user can enter multiple tournaments in future iterations
+    @commands.command()
+    @commands.has_role('Captain')  # Captain permissions
+    async def modify_tournament_rsvp_list(self, ctx, action: str, tournament_name: str):
+        temp_name = tournament_name.strip().lower()  # Trim leading and trailing spaces
+        
+        # Handle the action
+        action = action.lower()
+        if action not in ['rsvp', 'unrsvp']:
+            await ctx.send("Invalid action. Please use 'rsvp' or 'unrsvp'.")
+        
+        # Read the JSON file
+        with open('tournaments.json', 'r') as f:
+            data = json.load(f)
+        
+        # Tournament exists or not
+        if temp_name not in data:
+            await ctx.send(f"Tournament '{tournament_name}' not found.") 
+            return
+        
+        # Ensure rsvp_list exists
+        if "rsvp_list" not in data[temp_name]:
+            data[temp_name]["rsvp_list"] = []
+        
+        # Get rsvp_list
+        rsvp_list = data[temp_name]["rsvp_list"]
+        
+       # Display current RSVP list
+        if rsvp_list:
+            embed = discord.Embed(
+                title=f"RSVP List for {data[temp_name]['name']}",
+                color=0xffd700
+            )
+            embed.add_field(
+                name="**Players**",
+                value='\n'.join([f"• {player}" for player in rsvp_list]),
+                inline=False
+            )
+            embed.add_field(
+                name="**Total RSVPs**",
+                value=str(len(rsvp_list)),
+                inline=False
+            )
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(f"No RSVPs for '{data[temp_name]['name']}' yet.")
+            
+        def check(msg):
+            # Only accept messages from the same user, and ignore messages from others or 'quit'
+            return msg.author == ctx.author and msg.content.lower() != 'quit'
+
+        try:
+            await ctx.send(f"Please input the exact username under the players list you with to {action}: ")
+            # Wait for the captain's input
+            msg = await self.bot.wait_for('message', timeout=45.0, check=check)
+            username = msg.content.strip()
+
+            # If the username is empty or invalid, cancel
+            if not username:
+                await ctx.send("You must provide a valid username. Action cancelled.")
+                return
+
+            # Handle the action (rsvp or unrsvp)
+            if action == 'unrsvp' and username.lower() not in [player.lower() for player in rsvp_list]:
+                await ctx.send(f"{username} is not in the RSVP list for '{data[temp_name]['name']}'.")
+                return
+
+            # Add or remove the player based on the action
+            if action == 'rsvp':
+                if username.lower() in [player.lower() for player in rsvp_list]:
+                    await ctx.send(f"{username} is already RSVP'd for '{data[temp_name]['name']}'.")
+                    return
+                rsvp_list.append(username)
+                await ctx.send(f"{username} has been added to the RSVP list for '{data[temp_name]['name']}'.")
+            elif action == 'unrsvp':
+                rsvp_list.remove(username)
+                await ctx.send(f"{username} has been removed from the RSVP list for '{data[temp_name]['name']}'.")
+
+            # Save the updated JSON data
+            with open('tournaments.json', 'w') as f:
+                json.dump(data, f, indent=4)
+        
+        except asyncio.TimeoutError:
+            await ctx.send("You took too long to respond. Action has been cancelled.")
+        
 
     # View list of RSVP's for a tournament
     # view_tournament_rsvp_list tournament_name
